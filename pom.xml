@@ -11,11 +11,11 @@
   <parent>
     <groupId>com.tn.ps</groupId>
     <artifactId>pet-store-parent</artifactId>
-    <version>0.0.01-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>pet-store-product</artifactId>
-  <version>0.0.01-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
 
   <packaging>jar</packaging>
 
