@@ -2,13 +2,18 @@ package com.tn.ps.product.api;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import java.util.Collection;
 
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -49,5 +54,17 @@ public class ProductRestController
     {
       throw new ResponseStatusException(BAD_REQUEST, e.getMessage(), e);
     }
+  }
+
+  @RequestMapping(method = { POST, PUT },  value = "/")
+  public Product save(@RequestBody Product product)
+  {
+    return this.productRepository.save(product);
+  }
+
+  @DeleteMapping(value = "/{id}")
+  public void delete(@PathVariable("id") long id)
+  {
+    this.productRepository.deleteById(id);
   }
 }
