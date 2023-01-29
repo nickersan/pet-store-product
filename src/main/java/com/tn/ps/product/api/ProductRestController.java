@@ -5,7 +5,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
-import java.util.Collection;
+import static com.tn.lang.Strings.isNullOrWhitespace;
 
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -44,11 +44,13 @@ public class ProductRestController
   }
 
   @GetMapping(value = "/")
-  public Collection<Product> productFor(@RequestParam(required = false) MultiValueMap<String, String> params)
+  public Iterable<Product> productFor(@RequestParam(required = false) MultiValueMap<String, String> params)
   {
     try
     {
-      return this.productRepository.findWhere(QUERY_BUILDER.build(params));
+      String query = QUERY_BUILDER.build(params);
+
+      return isNullOrWhitespace(query) ? this.productRepository.findAll() : this.productRepository.findWhere(query);
     }
     catch (IllegalParameterException | QueryParseException e)
     {

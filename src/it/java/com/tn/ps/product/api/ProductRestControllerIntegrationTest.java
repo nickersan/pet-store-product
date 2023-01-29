@@ -52,6 +52,17 @@ class ProductRestControllerIntegrationTest
   }
 
   @Test
+  void shouldReturnAllProducts()
+  {
+    when(productRepository.findAll()).thenReturn(List.of(PRODUCT));
+
+    ResponseEntity<List<Product>> response = testRestTemplate.exchange("/", GET, null, PRODUCT_LIST);
+
+    assertTrue(response.getStatusCode().is2xxSuccessful());
+    assertEquals(List.of(PRODUCT), response.getBody());
+  }
+
+  @Test
   void shouldReturnProductForName()
   {
     when(productRepository.findWhere("name=" + PRODUCT.getName())).thenReturn(List.of(PRODUCT));
